@@ -1,0 +1,8 @@
+<div class="course-card bg-white p-4 shadow-md rounded-lg">
+    <img [src]="course.imageUrl" alt="{{ course.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+    <h3 class="text-xl font-semibold">{{ course.title }}</h3>
+    <p class="text-gray-500">{{ course.price  }}</p>
+    <p class="mt-2">{{ course.description  }}...</p>
+    <a href="/course/{{ course.id }}" class="btn btn-primary mt-4">Learn More</a>
+  </div>
+  
