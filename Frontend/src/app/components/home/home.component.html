@@ -9,7 +9,7 @@
   <div class="container mx-auto text-center">
     <div class=" flex justify-between items-center">
     <h2 class="text-3xl font-semibold">Discover Our Courses</h2>
-    <a href="/courses" class="btn btn-secondary">View More</a>
+    <button class="btn btn-secondary"><a href="/courses">View More</a > </button>
   </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
       <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
@@ -18,7 +18,7 @@
   </div>
 </section>
 
-<section class="contact-form bg-gray-100 py-20">
+<section id="contact" class="contact-form bg-gray-100 py-20">
   <div class="container mx-auto text-center">
     <app-contact-form></app-contact-form>
   </div>

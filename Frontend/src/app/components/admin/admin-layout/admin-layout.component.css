@@ -4,3 +4,6 @@
     border-left: 4px solid #b13564; 
   }
   
+  button:hover {
+    transform: scale(1.05);
+  }

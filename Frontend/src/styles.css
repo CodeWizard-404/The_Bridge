@@ -18,6 +18,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: calibri;
+      scroll-behavior: smooth;
+
   }
 
   body {
@@ -245,4 +247,19 @@
 
 .bg-background-dark {
   background-color: var(--background-dark);
+}
+
+
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1);
 }

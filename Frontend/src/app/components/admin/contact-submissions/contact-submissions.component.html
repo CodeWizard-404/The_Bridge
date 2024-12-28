@@ -1,1 +1,26 @@
-<p>contact-submissions works!</p>
+<div class="bg-gray-100 min-h-screen p-6">
+    <div class="container mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Contact Submissions</h1>
+        </div>
+
+        <div class="mb-6">
+            <input type="text" placeholder="Search Submissions..."
+                class="p-2 rounded-lg border border-gray-300 w-full" />
+        </div>
+
+        <!-- Submissions List -->
+        <div *ngIf="loading" class="text-center py-4">
+            <span class="text-lg text-gray-600">Loading contact submissions...</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div *ngFor="let submission of contact"
+                class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+                <h3 class="text-xl font-semibold text-gray-800">{{ submission.name }}</h3>
+                <p class="text-sm text-gray-500 mt-2">{{ submission.email }}</p>
+                <p class="text-sm text-gray-700 mt-4">{{ submission.message }}</p>
+            </div>
+        </div>
+    </div>
+</div>
