@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { AdminUser } from '../classes/admin-user';
-
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +29,11 @@ export class AdminUserService {
 
   // Update an existing admin user
   updateUser(id: number, user: AdminUser): Observable<AdminUser> {
-    return this.http.put<AdminUser>(`${this.apiUrl}/${id}`, user, this.getHeaders());
+    return this.http.put<AdminUser>(
+      `${this.apiUrl}/${id}`,
+      user,
+      this.getHeaders()
+    );
   }
 
   // Delete an admin user
@@ -39,14 +42,20 @@ export class AdminUserService {
   }
 
   // Authenticate an admin user (login)
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/api/admin/login`, { username, password });
+  login(username: string, password: string): Observable<AdminUser> {
+    return this.http.post<AdminUser>(`${environment.apiUrl}/api/admin/login`, {
+      username,
+      password,
+    });
   }
 
   // Attach JWT token to requests
   private getHeaders() {
     return {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('jwt')}`),
+      headers: new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${localStorage.getItem('jwt')}`
+      ),
     };
   }
 }

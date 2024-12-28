@@ -1,22 +1,25 @@
-<section class="hero bg-blue-500 text-white py-20 text-center">
-    <h1 class="text-4xl font-bold">Improve your skills on your own To prepare for a better future</h1>
-    <a href="/#" class="btn btn-secondary mt-4">Register Now</a>
-  </section>
-  
-  <section class="courses py-20">
-    <div class="container mx-auto text-center">
-      <h2 class="text-3xl font-semibold">Our Courses</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
-      </div>
-      <a href="/courses" class="btn btn-primary mt-6">View More Courses</a>
+<section class="hero text-black py-20 text-center relative home-hero">
+  <div class="bg-white bg-opacity-60 py-8 px-2 rounded-lg max-w-lg mx-auto">
+    <h1 class="text-2xl font-bold leading-tight">Improve your skills on your own <br> To prepare for a better future</h1>
+    <button href="/#" class="btn btn-primary ">Register Now</button>
+  </div>
+</section>
+
+<section class="courses py-20">
+  <div class="container mx-auto text-center">
+    <div class=" flex justify-between items-center">
+    <h2 class="text-3xl font-semibold">Discover Our Courses</h2>
+    <a href="/courses" class="btn btn-secondary">View More</a>
+  </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
     </div>
-  </section>
-  
-  <section class="contact-form bg-gray-100 py-20">
-    <div class="container mx-auto text-center">
-      <h2 class="text-3xl font-semibold">Contact Us</h2>
-      <app-contact-form></app-contact-form>
-    </div>
-  </section>
-  
+    
+  </div>
+</section>
+
+<section class="contact-form bg-gray-100 py-20">
+  <div class="container mx-auto text-center">
+    <app-contact-form></app-contact-form>
+  </div>
+</section>

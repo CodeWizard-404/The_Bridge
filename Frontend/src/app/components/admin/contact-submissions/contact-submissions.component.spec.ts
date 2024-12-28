@@ -11,7 +11,7 @@ describe('ContactSubmissionsComponent', () => {
       imports: [ContactSubmissionsComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ContactSubmissionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

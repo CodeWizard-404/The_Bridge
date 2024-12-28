@@ -1,0 +1,47 @@
+.contact-form-container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px 200px;
+    background-color: #f9b45e;
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    margin-top: 0px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #ffffff9d;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  /* Button Styles */
+.btn {
+    @apply px-6 py-1 rounded-lg text-white font-semibold;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  
+  .btn-secondary {
+    @apply bg-custom-primary hover:bg-custom-hover transition duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-custom-primary hover:bg-custom-hover mt-3 transition duration-200;
+  }
+  

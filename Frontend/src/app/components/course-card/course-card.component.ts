@@ -6,8 +6,8 @@ import { Course } from '../../classes/course';
   standalone: true,
   imports: [],
   templateUrl: './course-card.component.html',
-  styleUrl: './course-card.component.css'
+  styleUrl: './course-card.component.css',
 })
 export class CourseCardComponent {
-  @Input() course: Course = new Course(0, '', '', 0, '', 0, '', '', new Date(), new Date());
+  @Input() course!: Course;
 }

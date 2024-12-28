@@ -1,7 +1,3 @@
-<div class="course-list container mx-auto py-20">
-    <h2 class="text-3xl font-semibold text-center">Courses</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-      <app-course-card ></app-course-card>
-    </div>
-  </div>
-  
+<div class="course-grid">
+  <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
+</div>

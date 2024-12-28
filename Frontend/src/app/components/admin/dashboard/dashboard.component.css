@@ -1,0 +1,32 @@
+/* This file contains the Tailwind and custom styles for the Admin Dashboard */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  max-width: 1200px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1);
+}
+
+h1, h2 {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+h3 {
+  font-family: 'Arial', sans-serif;
+  font-weight: 600;
+  color: #fff;
+}

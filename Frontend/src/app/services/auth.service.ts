@@ -1,30 +1,50 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
+
+interface AdminLogin {
+  username: string;
+  password: string;
+}
+
+interface AuthResponse {
+  token: string;
+}
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class AuthService {
-  private apiUrl = `${environment.apiUrl}/api/admin`;
+export class AdminAuthService {
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = `${environment.apiUrl}/api/admin/login`;
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { username, password });
+  constructor(private http: HttpClient, private router: Router) {}
+
+  // Admin login
+  login(credentials: AdminLogin): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(this.apiUrl, credentials);
   }
 
-  // Store JWT token in localStorage
-  saveToken(token: string) {
-    localStorage.setItem('jwt', token);
+  // Save token to localStorage
+  saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
   }
 
-  // Attach token to HTTP requests
-  getHeaders() {
-    return new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${localStorage.getItem('jwt')}`
-    );
+  // Get token from localStorage
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
+  // Remove token from localStorage
+  logout(): void {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/admin/login']);
+  }
+
+  // Check if token is present
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

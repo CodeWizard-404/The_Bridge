@@ -1,0 +1,29 @@
+.course-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  .course-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .course-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .course-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .btn {
+    margin-top: 20px;
+  }
+  

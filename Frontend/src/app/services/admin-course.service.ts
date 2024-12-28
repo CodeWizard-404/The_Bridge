@@ -1,36 +1,51 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Course } from '../classes/course';
+import { AdminAuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class CourseService {
-  private apiUrl = `${environment.apiUrl}/api/courses`;
+export class AdminCourseService {
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = `${environment.apiUrl}/api/admin/courses`;
 
-  // Create a new course
+  constructor(private http: HttpClient, private authService: AdminAuthService) {}
+
+  // Get all courses (admin)
+  getCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl, {
+      headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
+    });
+  }
+
+  // Get course by ID
+  getCourseById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${this.apiUrl}/${id}`, {
+      headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
+    });
+  }
+
+  // Create new course
   createCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(this.apiUrl, course, this.getHeaders());
+    return this.http.post<Course>(this.apiUrl, course, {
+      headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
+    });
   }
 
-  // Update an existing course
+  // Update course by ID
   updateCourse(id: number, course: Course): Observable<Course> {
-    return this.http.put<Course>(`${this.apiUrl}/${id}`, course, this.getHeaders());
+    return this.http.put<Course>(`${this.apiUrl}/${id}`, course, {
+      headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
+    });
   }
 
-  // Delete a course by ID
+  // Delete course by ID
   deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, this.getHeaders());
-  }
-
-  // Attach JWT token to requests
-  private getHeaders() {
-    return {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('jwt')}`),
-    };
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
+    });
   }
 }
