@@ -16,7 +16,7 @@ export class CourseManagementComponent implements OnInit {
   courses: Course[] = [];
   loading = true;
   searchQuery = '';
-  showConfirmation: number | null = null; // Track which course needs confirmation
+  showConfirmation: number | null = null; 
 
   constructor(private courseService: AdminCourseService, private router: Router) {}
 

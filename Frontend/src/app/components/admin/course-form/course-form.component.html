@@ -104,20 +104,19 @@
           <label class="block text-gray-700 text-sm font-semibold mb-2">Image Preview</label>
           <img
             [src]="courseForm.get('imageUrl')?.value"
-            alt="Image Preview"
-            class="w-32 h-32 object-cover border shadow-lg rounded-lg"
+            alt="Course Image"
+            class="w-full h-auto rounded-lg shadow-lg"
           />
         </div>
       </div>
 
-      <!-- Submit Button -->
-      <div class="mt-4">
+      <div class="flex justify-end">
         <button
           type="submit"
-          class="bg-custom-primary hover:bg-custom-hover text-white px-6 py-2 rounded-lg shadow-lg transition"
           [disabled]="courseForm.invalid"
+          class="bg-custom-primary text-white px-6 py-2 rounded-lg shadow-lg hover:bg-custom-hover transition"
         >
-          {{ isEditMode ? "Update Course" : "Create Course" }}
+          Save Course
         </button>
       </div>
     </form>

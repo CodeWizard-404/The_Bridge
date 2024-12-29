@@ -5,8 +5,13 @@
         </div>
 
         <div class="mb-6">
-            <input type="text" placeholder="Search Submissions..."
-                class="p-2 rounded-lg border border-gray-300 w-full" />
+            <input 
+                type="text" 
+                [(ngModel)]="searchTerm" 
+                (ngModelChange)="filterContacts()"  
+                placeholder="Search Submissions..."
+                class="p-2 rounded-lg border border-gray-300 w-full" 
+            />
         </div>
 
         <!-- Loading State -->
@@ -16,7 +21,7 @@
 
         <!-- Contact List -->
         <ul class="space-y-4">
-            <li *ngFor="let submission of contact" class="bg-white p-4 rounded-lg shadow-lg">
+            <li *ngFor="let submission of filteredContacts" class="bg-white p-4 rounded-lg shadow-lg">
                 <div class="flex justify-between items-start">
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">{{ submission.name }}</h3>

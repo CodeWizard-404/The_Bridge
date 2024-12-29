@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './course-form.component.html',
-  styleUrl: './course-form.component.css',
+  styleUrls: ['./course-form.component.css'],
 })
 export class CourseFormComponent implements OnInit {
   courseForm: FormGroup;
@@ -78,12 +78,12 @@ export class CourseFormComponent implements OnInit {
           this.courseForm.patchValue({ imageUrl: res.url });
           console.log('Form value:', this.courseForm.value);
 
-          this.uploadProgress = -1; // Reset progress after completion
+          this.uploadProgress = -1;
         }
       },
       (err) => {
         console.log(err);
-        this.uploadProgress = -1; // Reset progress on error
+        this.uploadProgress = -1; 
       }
     );
   }

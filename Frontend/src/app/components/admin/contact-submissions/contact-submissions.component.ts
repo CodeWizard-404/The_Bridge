@@ -2,20 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { AdminAuthService } from '../../../services/auth.service';
 import { Contact } from '../../../classes/contact';
 import { ContactService } from '../../../services/contact.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-submissions',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule,FormsModule, CommonModule],
   templateUrl: './contact-submissions.component.html',
   styleUrl: './contact-submissions.component.css'
 })
-export class ContactSubmissionsComponent  implements OnInit {
+export class ContactSubmissionsComponent implements OnInit {
   contact: Contact[] = [];
+  filteredContacts: Contact[] = [];
   loading = true;
-  showConfirmation: number | null = null;  // Track which contact needs confirmation
+  showConfirmation: number | null = null; 
+  searchTerm: string = ''; 
 
   constructor(private contactService: ContactService, private authService: AdminAuthService) {}
 
@@ -28,6 +30,7 @@ export class ContactSubmissionsComponent  implements OnInit {
     this.contactService.getContact().subscribe(
       (data) => {
         this.contact = data;
+        this.filteredContacts = data; 
         this.loading = false;
       },
       (error) => {
@@ -35,6 +38,19 @@ export class ContactSubmissionsComponent  implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  // Filter contacts based on search term
+  filterContacts(): void {
+    if (this.searchTerm) {
+      this.filteredContacts = this.contact.filter(contact =>
+        contact.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        contact.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        contact.message.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredContacts = this.contact; 
+    }
   }
 
   // Show confirmation for deletion
@@ -52,6 +68,7 @@ export class ContactSubmissionsComponent  implements OnInit {
     this.contactService.deleteContact(id).subscribe(
       () => {
         this.contact = this.contact.filter(contact => contact.id !== id);
+        this.filteredContacts = this.filteredContacts.filter(contact => contact.id !== id); // Remove from filtered list as well
         console.log('Contact deleted successfully');
       },
       (error) => {
