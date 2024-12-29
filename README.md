@@ -40,7 +40,6 @@ The Bridge is built with cutting-edge technologies to ensure reliability, scalab
 
 - **Backend:** 
   - **Spring Boot** for robust backend APIs
-  - **Node.js** for handling asynchronous operations
   - **JWT Authentication** for secure user login and session management
   
 - **Database:** 
@@ -49,8 +48,12 @@ The Bridge is built with cutting-edge technologies to ensure reliability, scalab
 ---
 ## **Screenshots**
 
-![Landing Page](https://github.com/CodeWizard-404/The_Bridge/Screenshots/LandingPage.png)
-![Admin Panel](https://github.com/CodeWizard-404/The_Bridge/assets/106864034/0942424f-2363-496c-850d-722812d30854)
+![Landing Page](/Screenshots/LandingPage.png)
+![Admin Panel](/Screenshots/AdminLogin.png)
+![Admin Panel](/Screenshots/AdminDashboard.png)
+![Admin Panel](/Screenshots/AdminCourses.png)
+![Admin Panel](/Screenshots/AdminContact.png)
+![Admin Panel](/Screenshots/AdminAdd.png)
 
 ---
 
