@@ -22,7 +22,7 @@ Welcome to **The Bridge**, a dynamic learning platform designed to provide compr
 ### **Admin Panel**
 - **CRUD Operations:** Fully functional admin panel that allows administrators to:
   - **Create** new courses
-  - **Read** and view course details
+  - **Read** and view course/contact details
   - **Update** course content (titles, descriptions, prices, duration, status, images)
   - **Delete** outdated or irrelevant courses/contact form submissions
 - **Image Uploads:** Administrators can upload images for each course to visually enhance the learning experience.
