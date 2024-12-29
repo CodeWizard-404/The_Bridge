@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminDashboardService } from '../../../services/admin-dashboard.service';
 import { CommonModule } from '@angular/common';
+import { AdminAuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ CommonModule],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-
-  dashboardStats = {
-    courses: 0,
-    activeCourses: 0,
-    contactSubmissions: 0
-  };
+  dashboardStats: any = {};
   loading = true;
 
-  constructor(private dashboardService: AdminDashboardService) { }
+  constructor(private authService: AdminAuthService, private dashboardService: AdminDashboardService) {}
 
   ngOnInit(): void {
     this.fetchDashboardStats();
@@ -27,7 +23,12 @@ export class DashboardComponent implements OnInit {
   fetchDashboardStats(): void {
     this.dashboardService.getStats().subscribe(
       (data) => {
-        this.dashboardStats = data;
+        console.log('Dashboard Stats:', data);
+        this.dashboardStats = {
+          courses: data.courseCount,
+          activeCourses: data.activeCourseCount,
+          contactSubmissions: data.contactSubmissionsCount,
+        };
         this.loading = false;
       },
       (error) => {
@@ -35,5 +36,8 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+  logout(): void {
+    this.authService.logout();
   }
 }

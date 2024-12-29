@@ -1,39 +1,125 @@
 <div class="bg-gray-100 min-h-screen p-6">
-    <div class="container mx-auto max-w-lg">
-      <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ isEditMode ? 'Edit Course' : 'Add New Course' }}</h1>
-  
-      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-semibold mb-2">Title</label>
-          <input type="text" formControlName="title" class="p-2 w-full border shadow-lg rounded-lg" />
+  <div class="container mx-auto max-w-lg">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">
+      {{ isEditMode ? "Edit Course" : "Add New Course" }}
+    </h1>
+
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+      <!-- Title Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Title</label>
+        <input
+          type="text"
+          formControlName="title"
+          class="p-2 w-full border shadow-lg rounded-lg"
+        />
+        <div *ngIf="courseForm.get('title')?.touched && courseForm.get('title')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="courseForm.get('title')?.hasError('required')">Title is required.</div>
         </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-semibold  mb-2">Description</label>
-          <textarea formControlName="description" class="p-2 w-full border shadow-lg rounded-lg"></textarea>
+      </div>
+
+      <!-- Description Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Description</label>
+        <textarea
+          formControlName="description"
+          class="p-2 w-full border shadow-lg rounded-lg"
+        ></textarea>
+        <div *ngIf="courseForm.get('description')?.touched && courseForm.get('description')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="courseForm.get('description')?.hasError('required')">Description is required.</div>
         </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-semibold mb-2">Price</label>
-          <input type="number" formControlName="price" class="p-2 w-full border shadow-lg rounded-lg" />
+      </div>
+
+      <!-- Price Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Price</label>
+        <input
+          type="number"
+          formControlName="price"
+          class="p-2 w-full border shadow-lg rounded-lg"
+        />
+        <div *ngIf="courseForm.get('price')?.touched && courseForm.get('price')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="courseForm.get('price')?.hasError('required')">Price is required.</div>
+          <div *ngIf="courseForm.get('price')?.hasError('min')">Price must be greater than 0.</div>
         </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-semibold mb-2">Duration</label>
-          <input type="text" formControlName="duration" class="p-2 w-full border shadow-lg rounded-lg" />
+      </div>
+
+      <!-- Duration Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Duration</label>
+        <input
+          type="number"
+          formControlName="duration"
+          class="p-2 w-full border shadow-lg rounded-lg"
+        />
+        <div *ngIf="courseForm.get('duration')?.touched && courseForm.get('duration')?.invalid" class="text-red-500 text-xs mt-1">
+          <div *ngIf="courseForm.get('duration')?.hasError('required')">Duration is required.</div>
         </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-semibold mb-2">Image URL</label>
-          <input type="text" formControlName="imageUrl" class="p-2 w-full border shadow-lg rounded-lg" />
-        </div>
-  
-        <div class="mt-4">
-          <button type="submit" class="bg-custom-primary hover:bg-custom-hover text-white px-6 py-2 rounded-lg shadow-lg transition">
-            {{ isEditMode ? 'Update Course' : 'Create Course' }}
+      </div>
+
+      <!-- Status Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Status</label>
+        <select
+          formControlName="status"
+          class="p-2 w-full border shadow-lg rounded-lg"
+        >
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <!-- Image Upload Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-semibold mb-2">Upload Image</label>
+        <div class="flex items-center space-x-4">
+          <div class="relative w-full">
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <div class="p-2 w-full border shadow-lg rounded-lg bg-white flex items-center justify-between">
+              <span class="text-gray-500">{{ selectedFileName }}</span>
+              <span class="bg-custom-primary text-white px-4 py-2 rounded-lg">Browse</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            (click)="onUpload()"
+            class="bg-custom-primary hover:bg-custom-hover text-white px-6 py-2 rounded-lg shadow-lg transition"
+          >
+            Upload Image
           </button>
         </div>
-      </form>
-    </div>
+        <div *ngIf="uploadProgress >= 0" class="relative pt-1 mt-2">
+          <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+            <div
+              [style.width.%]="uploadProgress"
+              class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500 transition-all duration-500 ease-in-out"
+            ></div>
+          </div>
+        </div>
+        <div *ngIf="courseForm.get('imageUrl')?.value" class="mt-4">
+          <label class="block text-gray-700 text-sm font-semibold mb-2">Image Preview</label>
+          <img
+            [src]="courseForm.get('imageUrl')?.value"
+            alt="Image Preview"
+            class="w-32 h-32 object-cover border shadow-lg rounded-lg"
+          />
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-4">
+        <button
+          type="submit"
+          class="bg-custom-primary hover:bg-custom-hover text-white px-6 py-2 rounded-lg shadow-lg transition"
+          [disabled]="courseForm.invalid"
+        >
+          {{ isEditMode ? "Update Course" : "Create Course" }}
+        </button>
+      </div>
+    </form>
   </div>
-  
+</div>

@@ -16,6 +16,7 @@ export class CourseManagementComponent implements OnInit {
   courses: Course[] = [];
   loading = true;
   searchQuery = '';
+  showConfirmation: number | null = null; // Track which course needs confirmation
 
   constructor(private courseService: AdminCourseService, private router: Router) {}
 
@@ -37,18 +38,28 @@ export class CourseManagementComponent implements OnInit {
     );
   }
 
-  // Delete course
+  // Show confirmation for deletion
+  confirmDelete(id: number): void {
+    this.showConfirmation = id;
+  }
+
+  // Cancel the deletion
+  cancelDelete(): void {
+    this.showConfirmation = null;
+  }
+
+  // Perform the delete
   deleteCourse(id: number): void {
-    if (confirm('Are you sure you want to delete this course?')) {
-      this.courseService.deleteCourse(id).subscribe(
-        () => {
-          this.courses = this.courses.filter(course => course.id !== id);
-        },
-        (error) => {
-          console.error('Error deleting course:', error);
-        }
-      );
-    }
+    this.courseService.deleteCourse(id).subscribe(
+      () => {
+        this.courses = this.courses.filter(course => course.id !== id);
+        console.log('Course deleted successfully');
+      },
+      (error) => {
+        console.error('Error deleting course:', error);
+      }
+    );
+    this.showConfirmation = null; // Hide confirmation dialog after deletion
   }
 
   // Navigate to edit page
@@ -58,6 +69,12 @@ export class CourseManagementComponent implements OnInit {
 
   // Search courses based on title
   onSearchChange(): void {
-    this.loadCourses();
+    if (this.searchQuery.trim() === '') {
+      this.loadCourses();
+    } else {
+      this.courses = this.courses.filter(course =>
+        course.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
   }
 }

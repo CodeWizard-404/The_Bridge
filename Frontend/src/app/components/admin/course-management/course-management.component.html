@@ -1,40 +1,69 @@
 <div class="bg-gray-100 min-h-screen p-6">
-    <div class="container mx-auto">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">Course Management</h1>
-            <button 
-                class="bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-green-600 transition">
-                <a href="admin/courses/create">Add New Course</a> 
-            </button>
-        </div>
-
-        <div class="mb-6">
-            <input [(ngModel)]="searchQuery" (input)="onSearchChange()" type="text" placeholder="Search Courses..."
-                class="p-2 rounded-lg border border-gray-300 w-full" />
-        </div>
-
-        <!-- Courses List -->
-        <div *ngIf="loading" class="text-center py-4">
-            <span class="text-lg text-gray-600">Loading courses...</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div *ngFor="let course of courses" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                <h3 class="text-xl font-semibold text-gray-800">{{ course.title }}</h3>
-                <p class="text-sm text-gray-500 mt-2">{{ course.description }}</p>
-                <p class="text-lg font-bold text-blue-500 mt-4">${{ course.price }}</p>
-
-                <div class="mt-4 flex justify-between">
-                    <button (click)="editCourse(course.id)"
-                        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-                        Edit
-                    </button>
-                    <button (click)="deleteCourse(course.id)"
-                        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        </div>
+  <div class="container mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">Course Management</h1>
+      <button
+        class="bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-green-600 transition"
+      >
+        <a href="admin/courses/create">Add New Course</a>
+      </button>
     </div>
+
+    <div class="mb-6">
+      <input
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+        type="text"
+        placeholder="Search Courses..."
+        class="p-2 rounded-lg border border-gray-300 w-full"
+      />
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-4">
+      <span class="text-lg text-gray-600">Loading courses...</span>
+    </div>
+
+    <!-- Courses List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        *ngFor="let course of courses"
+        class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition"
+      >
+        <img
+          [src]="course.imageUrl"
+          alt="{{ course.title }}"
+          class="w-full h-32 object-cover rounded-lg mb-4"
+        />
+        <h3 class="text-xl font-semibold text-gray-800">{{ course.title }}</h3>
+        <p class="text-sm text-gray-500 mt-2">{{ course.description }}</p>
+        <p class="text-lg font-bold text-blue-500 mt-4">${{ course.price }}</p>
+
+        <div class="mt-4 flex justify-between">
+          <button
+            (click)="editCourse(course.id)"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+          >
+            Edit
+          </button>
+
+          <!-- Show confirmation for deletion -->
+          <button *ngIf="showConfirmation !== course.id" (click)="confirmDelete(course.id)"
+            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+            Delete
+          </button>
+          
+          <!-- Confirmation Prompt -->
+          <div *ngIf="showConfirmation === course.id" class="flex items-center">
+            <button (click)="deleteCourse(course.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 mr-2">
+              Confirm
+            </button>
+            <button (click)="cancelDelete()" class="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

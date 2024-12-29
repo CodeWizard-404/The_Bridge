@@ -1,3 +1,48 @@
-<div class="course-grid">
-  <app-course-card *ngFor="let course of courses" [course]="course"></app-course-card>
-</div>
+<section class="courses py-20 px-6 bg-gradient-to-b from-white to-gray-100">
+  <!-- Section Header -->
+  <div class="text-center mb-12">
+    <h2 class="text-4xl font-extrabold text-gray-800 mb-4">
+      Explore Our Courses
+    </h2>
+    <p class="text-lg text-gray-600">
+      Browse through our expertly crafted courses and enhance your skills.
+    </p>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="relative max-w-3xl mx-auto mb-16">
+    <input
+      [(ngModel)]="searchQuery"
+      (input)="onSearchChange()"
+      type="text"
+      placeholder="Search for a course..."
+      class="w-full p-4 pl-12 text-lg rounded-lg shadow-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300"
+    />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 16l-4-4m0 0l4-4m-4 4h16"
+      />
+    </svg>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <app-course-card
+      *ngFor="let course of courses"
+      [course]="course"
+      class="rounded-lg shadow-lg  hover:shadow-xl transform  duration-300"
+    >
+    </app-course-card>
+  </div>
+</section>

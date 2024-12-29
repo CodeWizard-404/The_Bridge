@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Course } from '../../classes/course';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-course-card',
@@ -10,4 +11,7 @@ import { Course } from '../../classes/course';
 })
 export class CourseCardComponent {
   @Input() course!: Course;
+
+  constructor(private dialog: MatDialog) {}
+
 }

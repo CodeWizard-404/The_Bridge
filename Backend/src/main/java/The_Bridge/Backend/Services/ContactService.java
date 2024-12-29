@@ -20,4 +20,9 @@ public class ContactService {
     public List<Contact> getAllSubmissions() {
         return contactRepository.findAll();
     }
+    
+    public void deleteContactById(Long id) {
+        contactRepository.deleteById(id);
+    }
+
 }

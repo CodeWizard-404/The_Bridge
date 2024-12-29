@@ -9,18 +9,36 @@
                 class="p-2 rounded-lg border border-gray-300 w-full" />
         </div>
 
-        <!-- Submissions List -->
+        <!-- Loading State -->
         <div *ngIf="loading" class="text-center py-4">
             <span class="text-lg text-gray-600">Loading contact submissions...</span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div *ngFor="let submission of contact"
-                class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                <h3 class="text-xl font-semibold text-gray-800">{{ submission.name }}</h3>
-                <p class="text-sm text-gray-500 mt-2">{{ submission.email }}</p>
-                <p class="text-sm text-gray-700 mt-4">{{ submission.message }}</p>
-            </div>
-        </div>
+        <!-- Contact List -->
+        <ul class="space-y-4">
+            <li *ngFor="let submission of contact" class="bg-white p-4 rounded-lg shadow-lg">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">{{ submission.name }}</h3>
+                        <p class="text-sm text-gray-500">{{ submission.email }}</p>
+                        <p class="text-sm text-gray-700 mt-2">{{ submission.message }}</p>
+                    </div>
+                    <div class="ml-4">
+                        <button *ngIf="showConfirmation !== submission.id" (click)="confirmDelete(submission.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                            Delete
+                        </button>
+                        
+                        <div *ngIf="showConfirmation === submission.id" class="flex items-center">
+                            <button (click)="deleteContact(submission.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 mr-2">
+                                Confirm Delete
+                            </button>
+                            <button (click)="cancelDelete()" class="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>

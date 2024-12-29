@@ -28,10 +28,14 @@ public class AdminDashboardController {
     public Map<String, Object> getDashboardStats() {
         long courseCount = courseService.getAllCourses().size();
         long contactSubmissionsCount = contactService.getAllSubmissions().size();
+        long activeCourseCount = courseService.getAllCourses().stream()
+                .filter(course -> "active".equals(course.getStatus()))
+                .count();
 
         Map<String, Object> stats = new HashMap<>();
         stats.put("courseCount", courseCount);
         stats.put("contactSubmissionsCount", contactSubmissionsCount);
+        stats.put("activeCourseCount", activeCourseCount);
         return stats;
     }
 }

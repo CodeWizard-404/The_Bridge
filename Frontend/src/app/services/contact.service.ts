@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { Contact } from '../classes/contact';
 import { AdminAuthService } from './auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,8 +19,19 @@ export class ContactService {
     return this.http.post<Contact>(this.apiUrl, contact);
   }
 
+  // Get all contacts
   getContact(): Observable<Contact[]> {
+    console.log('Request Headers:', { 'Authorization': `Bearer ${this.authService.getToken()}` });
+    
     return this.http.get<Contact[]>(this.apiUrl, {
+      headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
+    });
+  }
+
+  // Delete a contact by ID
+  deleteContact(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url, {
       headers: { 'Authorization': `Bearer ${this.authService.getToken()}` }
     });
   }

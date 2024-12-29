@@ -20,7 +20,7 @@ import The_Bridge.Backend.Services.CourseService;
 
 @RestController
 @RequestMapping("/api/admin/courses")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminCourseController {
     @Autowired
@@ -32,7 +32,7 @@ public class AdminCourseController {
     }
 
     @GetMapping("/{id}")
-    public Course getCourseById(@PathVariable Long id) {
+    public Course getCourseById(@PathVariable("id") Long id) {
         return courseService.getCourseById(id);
     }
 
@@ -42,12 +42,12 @@ public class AdminCourseController {
     }
 
     @PutMapping("/{id}")
-    public Course updateCourse(@PathVariable Long id, @RequestBody Course updatedCourse) {
+    public Course updateCourse(@PathVariable("id") Long id, @RequestBody Course updatedCourse) {
         return courseService.updateCourse(id, updatedCourse);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCourse(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCourse(@PathVariable("id") Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.ok().build();
     }

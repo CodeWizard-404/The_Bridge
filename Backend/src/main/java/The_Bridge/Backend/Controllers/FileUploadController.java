@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import The_Bridge.Backend.Services.FileStorageService;
 @RestController
 @RequestMapping("/api/admin/upload")
 @CrossOrigin
-@PreAuthorize("hasRole('ADMIN')")
 public class FileUploadController {
     @Autowired
     private FileStorageService fileStorageService;
@@ -28,7 +26,7 @@ public class FileUploadController {
         String fileName = fileStorageService.storeFile(file);
         Map<String, String> response = new HashMap<>();
         response.put("fileName", fileName);
-        response.put("url", "/uploads/" + fileName);
+        response.put("url", "http://localhost:8080/uploads/" + fileName);
         return ResponseEntity.ok(response);
     }
 }
